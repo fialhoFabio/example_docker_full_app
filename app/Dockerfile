@@ -3,13 +3,11 @@ ENV NODE_ENV development
 
 WORKDIR /app
 
-COPY package.json yarn.lock ./
-RUN yarn install --frozen-lockfile
-
-COPY . .
+RUN yarn install
 
 EXPOSE 3000
 
 RUN apt-get update && apt-get install -y curl
 
-CMD ["yarn", "start"]
+# Comando para rodar o yarn start e instalar as dependências
+ENTRYPOINT ["sh", "-c", "yarn && yarn start"]
