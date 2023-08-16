@@ -65,6 +65,6 @@ jobs:
           username: ${{ secrets.HOST_USERNAME }}
           password: ${{ secrets.HOST_PASSWORD }}
           script: |
-            cd /var/www
-            curl -o docker-compose.yml https://raw.githubusercontent.com/fialhoFabio/example_docker_full_app/dev/docker-compose.yml
-            sudo docker stack deploy -c docker-compose.yml app
+            cd /var/www \
+            && curl -o docker-compose.yml https://raw.githubusercontent.com/fialhoFabio/example_docker_full_app/dev/docker-compose.yml \
+            && sudo docker stack deploy -c docker-compose.yml app
