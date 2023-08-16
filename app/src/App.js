@@ -1,19 +1,27 @@
-import React, { useEffect } from 'react';
-import axios from 'axios'
-function App() {
-    useEffect(() => {
-        axios.get('http://nginx:80/api')
-            .then(function (response) {
-                console.log(response.data);
-            })
-            .catch(function (error) {
-                console.log(error);
-            })
-    }, []);
+import React from 'react';
+import { useSpring, animated } from 'react-spring';
+import './App.css';
+
+function StatusScreen() {
+    const springProps = useSpring({
+        to: { opacity: 1, translateY: 0 },
+        from: { opacity: 0, translateY: -100 },
+        config: { tension: 300, friction: 20 }, // Ajuste os valores para a animação desejada
+    });
 
     return (
-        <div>
-            <h1>Dados da API</h1>
+        <animated.div className="status-container" style={{ ...springProps }}>
+            <h1>Tudo Funcionando Bem! 😄</h1>
+        </animated.div>
+    );
+}
+
+function App() {
+    return (
+        <div className="App">
+            <header className="App-header">
+                <StatusScreen />
+            </header>
         </div>
     );
 }
