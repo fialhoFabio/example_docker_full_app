@@ -57,3 +57,14 @@ jobs:
         run: |
           rm -rf /tmp/.buildx-cache
           mv /tmp/.buildx-cache-new /tmp/.buildx-cache
+
+      - name: executing remote ssh commands using password
+        uses: appleboy/ssh-action@v1.0.0
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.HOST_USERNAME }}
+          password: ${{ secrets.HOST_PASSWORD }}
+          script: |
+            cd /var/www
+            curl -o docker-compose.yml https://raw.githubusercontent.com/fialhoFabio/example_docker_full_app/dev/docker-compose.yml
+            sudo docker stack deploy -c docker-compose.yml app
