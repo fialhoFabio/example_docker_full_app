@@ -1,6 +1,7 @@
 import React from 'react';
 import { useSpring, animated } from 'react-spring';
 import './App.css';
+import ServiceList from "./ServiceList";
 
 function StatusScreen() {
     const springProps = useSpring({
@@ -12,6 +13,7 @@ function StatusScreen() {
     return (
         <animated.div className="status-container" style={{ ...springProps }}>
             <h1>Tudo Funcionando Bem! 😄</h1>
+            <ServiceList/>
         </animated.div>
     );
 }
