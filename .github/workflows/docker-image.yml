@@ -51,6 +51,7 @@ jobs:
           # List of tags
           tags: |
             ${{ secrets.DOCKER_USERNAME }}/example_docker_react_app:${{ steps.extract_version.outputs.version_tag }}
+            ${{ secrets.DOCKER_USERNAME }}/example_docker_react_app:latest
 
       - name: Move cache
         run: |

@@ -1,0 +1,6 @@
+version: '3.8'
+services:
+  web:
+    image: fialhofabio/example_docker_react_app:latest
+    ports:
+      - "80:8080"
