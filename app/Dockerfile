@@ -1,13 +1,28 @@
-FROM node:20
-ENV NODE_ENV development
+# Use a base image with Node.js to build the React app
+FROM node:20 AS build
 
 WORKDIR /app
 
+# Copy package.json and package-lock.json
+COPY package*.json ./
+
+# Install dependencies
 RUN yarn install
 
-EXPOSE 3000
+# Copy the rest of the app source code
+COPY . .
 
-RUN apt-get update && apt-get install -y curl
+# Build the React app
+RUN yarn build
 
-# Comando para rodar o yarn start e instalar as dependências
-ENTRYPOINT ["sh", "-c", "yarn && yarn start"]
+# Use a smaller base image for the final image
+FROM nginx:latest
+
+# Copy the built app from the previous stage
+COPY --from=build /app/build /usr/share/nginx/html
+
+# Expose port 80
+EXPOSE 80
+
+# Start NGINX
+CMD ["nginx", "-g", "daemon off;"]
