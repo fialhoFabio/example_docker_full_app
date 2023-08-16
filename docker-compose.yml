@@ -1,6 +1,26 @@
 version: '3.8'
+
 services:
   web:
     image: fialhofabio/example_docker_react_app:latest
+
+    deploy:
+      replicas: 3 # Define o número de réplicas do serviço (escalonamento)
+      update_config:
+        parallelism: 2 # Número de contêineres atualizados simultaneamente durante uma atualização
+        delay: 10s # Atraso entre atualizações de contêineres
+      resources:
+        limits:
+          cpus: '0.5' # Limite máximo de uso de CPU por contêiner
+          memory: 256M # Limite máximo de uso de memória por contêiner
+      restart_policy:
+        condition: on-failure # Política de reinício em caso de falha
+
     ports:
       - "80:8080"
+
+    networks:
+      - my-network
+
+networks:
+  my-network:
