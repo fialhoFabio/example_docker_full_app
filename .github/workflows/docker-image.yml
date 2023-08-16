@@ -23,7 +23,7 @@ jobs:
           echo "Docker fullpath: ${{ secrets.DOCKER_USERNAME }}/example_docker_react_app:$VERSION_TAG"
 
       - name: Build the Docker image
-        run: docker build app/. --file app/Dockerfile --tag ${{ secrets.DOCKER_USERNAME }}/example_docker_react_app:$VERSION_TAG
+        run: docker build app/. --file app/Dockerfile --tag fialhofabio/example_docker_react_app:$VERSION_TAG
 
       - name: Push the Docker image
-        run: docker push ${{ secrets.DOCKER_USERNAME }}/example_docker_react_app:$VERSION_TAG
+        run: docker push fialhofabio/example_docker_react_app:$VERSION_TAG
