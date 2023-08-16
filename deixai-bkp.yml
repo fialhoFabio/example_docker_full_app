@@ -1,0 +1,55 @@
+version: '3'
+services:
+  php-fpm:
+    build:
+      context: ./api
+      dockerfile: Dockerfile
+    volumes:
+      - ./api:/var/www
+    networks:
+      - mynetwork
+
+  nginx:
+    image: nginx:latest
+    ports:
+      - "8080:80"
+    volumes:
+      - ./docker/nginx.conf:/etc/nginx/conf.d/default.conf
+    depends_on:
+      - php-fpm
+    networks:
+      - mynetwork
+
+  postgres:
+    image: postgres:latest
+    environment:
+      POSTGRES_DB: exemplo-cris
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: senha
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    networks:
+      - mynetwork
+
+  app:
+    build:
+      context: ./app
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    networks:
+      - mynetwork
+    depends_on:
+      - php-fpm
+      - postgres
+    volumes:
+      - ./app:/app
+
+volumes:
+  postgres-data:
+    external: false
+
+networks:
+  mynetwork:
