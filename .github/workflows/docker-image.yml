@@ -20,6 +20,7 @@ jobs:
         run: |
           VERSION_TAG=$(jq -r .version app/package.json)
           echo "Version Tag: $VERSION_TAG"
+          echo "Docker fullpath: ${{ secrets.DOCKER_USERNAME }}/example_docker_react_app:$VERSION_TAG"
 
       - name: Build the Docker image
         run: docker build app/. --file app/Dockerfile --tag ${{ secrets.DOCKER_USERNAME }}/example_docker_react_app:$VERSION_TAG
