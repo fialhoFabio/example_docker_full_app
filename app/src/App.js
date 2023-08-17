@@ -12,7 +12,7 @@ function StatusScreen() {
 
     return (
         <animated.div className="status-container" style={{ ...springProps }}>
-            <h1>Tudo Funcionando Bem! 😄</h1>
+            <h1>Tudo Funcionando Bem Porra! 😄</h1>
             <ServiceList/>
         </animated.div>
     );
